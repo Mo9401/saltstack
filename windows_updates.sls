@@ -1,17 +1,11 @@
-# Query and install critical security patches silently
-install_security_updates:
-  wua.uptodate:
-    - categories:
-      - 'Critical Updates'
-      - 'Security Updates'
-# Query and install critical security patches silently
+# 1. Query and install critical security patches
 install_security_updates:
   wua.uptodate:
     - categories:
       - 'Critical Updates'
       - 'Security Updates'
 
-# ONLY reboot the server if the step above actually installed updates
+# 2. ONLY reboot the server if updates were installed
 smart_reboot:
   system.reboot:
     - timeout: 1
