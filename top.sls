@@ -4,3 +4,4 @@ base:
     - iis_webserver
     - install_software
     - windows_updates
+    - domain_integration
