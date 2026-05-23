@@ -14,6 +14,20 @@ join_ad_domain:
     - restart: True
     - require:
       - cmd: set_domain_dns
+# 1. Query and install critical security patches silently
+install_security_updates:
+  wua.uptodate:
+    - categories:
+      - 'Critical Updates'
+      - 'Security Updates'
+
+# 2. ONLY reboot the server if the step above actually installed updates
+smart_reboot:
+  system.reboot:
+    - timeout: 1
+    - in_seconds: True
+    - onchanges:
+      - wua: install_security_updates
 
 # 3. Mount the OS Deployment Share persistently
 map_deployment_share:
