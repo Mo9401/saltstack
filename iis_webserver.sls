@@ -26,3 +26,9 @@ deploy_custom_homepage:
         </html>
     - require:
       - win_servermanager: install_iis_role
+set_default_document:
+  cmd.run:
+    - name: '%windir%\system32\inetsrv\appcmd set config /section:defaultDocument /+files.[value=''index.html'']'
+    - unless: '%windir%\system32\inetsrv\appcmd list config /section:defaultDocument | findstr "index.html"'
+    - require:
+      - win_servermanager: install_iis_role
